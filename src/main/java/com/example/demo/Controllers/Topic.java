@@ -5,8 +5,8 @@ import com.example.demo.TopicsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class Topic {
@@ -21,7 +21,7 @@ public class Topic {
     }
 
     @RequestMapping("/topics/{id}")
-    public Topics getTopic(@PathVariable String id){
+    public Optional<Topics> getTopic(@PathVariable String id){
         return topicsService.getTopic(id);
     }
 
@@ -30,5 +30,15 @@ public class Topic {
         topicsService.addTopic(topic);
     }
 
+    @RequestMapping(method = RequestMethod.PUT,value="/topics/{id}")
+    public void updateTopic(@RequestBody Topics topic,@PathVariable String id){
+        topicsService.updateTopic(topic,id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value="/topics/{id}")
+    public void deleteTopic(@PathVariable String id){
+        topicsService.deleteTopic(id);
+
+    }
 
 }
